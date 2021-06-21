@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pool de pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    
+  <div id="container">
+    
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="3">Requerente</ion-col>
+        <ion-col size="3">Valor total</ion-col>
+        <ion-col size="3">Pedido em</ion-col>
+        <ion-col size="3">Fazer oferta</ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid fixed>
+      <ion-row *ngFor="let item of pedidos">
+        <ion-col size="3">{{item.usuario.nome}}</ion-col>
+        <ion-col size="3">{{item.valor}}</ion-col>
+        <ion-col size="3">{{item.criadostr}}</ion-col>
+        <ion-col size="3">          
+          <ion-button shape="round" size="small" (click)="fazerOferta(item)">
+            <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
