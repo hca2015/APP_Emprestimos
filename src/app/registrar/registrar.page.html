@@ -1,9 +1,103 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>registrar</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fxFlex=100>
+  <form style="height: 100%;" fxLayoutGap="16px" fxLayout="column" fxLayoutAlign="center center"
+    [formGroup]="registrarForm" (ngSubmit)="onSubmit()">
 
-<ion-content>
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Nome <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="nome" type="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.nome)">
+      <p style="color: red;">{{item}}</p>
+    </div>
 
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.email)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">CPF <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="cpf" type="number"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.cpf)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Endereço <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="endereco" type="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.endereco)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Bairro <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="bairro" type="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.bairro)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">CEP <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="cep" type="number"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.cep)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Cidade <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="cidade" type="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.cidade)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Estado (SIGLA)<ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="estado" type="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let item of resolveError(registrarForm?.controls?.estado)">
+      <p style="color: red;">{{item}}</p>
+    </div>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Senha <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-item style="width: 50%;">
+      <ion-label position="floating">Confirmar senha <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input required formControlName="confirmpassword" type="password"></ion-input>
+    </ion-item>
+
+    <ion-label *ngIf="erroSenhaDiferente" style="color: red;">Senhas não conferem!</ion-label>
+
+    <ion-label style="color: red;" id="errosSenha"></ion-label>
+
+    <div fxLayout="row">
+      <ion-button block color="primary" type="button" routerDirection="root" [routerLink]="['/login']">
+        Login
+      </ion-button>
+
+      <ion-button block color="primary" type="submit" [disabled]="registrarForm.invalid">
+        Registrar
+      </ion-button>
+    </div>
+  </form>
 </ion-content>

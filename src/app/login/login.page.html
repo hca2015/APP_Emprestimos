@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fxFlex=100>
+    <form style="height: 100%;" fxLayoutGap="32px" fxLayout="column" fxLayoutAlign="center center"
+        [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-<ion-content>
+        <ion-item style="width: 50%;">
+            <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="email" type="email"></ion-input>
+        </ion-item>
 
+        <ion-item style="width: 50%;">
+            <ion-label position="floating">Password <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="password" type="password"></ion-input>
+        </ion-item>
+
+        <ion-label *ngIf="error" style="color: red;">Usuário ou senha incorretos!</ion-label>
+
+        <div fxLayout="row">
+
+            <ion-button block color="primary" type="button" routerDirection="root" [routerLink]="['/registrar']">
+                Registrar
+            </ion-button>
+
+            <ion-button block color="primary" type="submit" [disabled]="loginForm.invalid">
+                Login
+            </ion-button>
+        </div>
+    </form>
 </ion-content>

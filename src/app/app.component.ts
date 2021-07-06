@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
   public appPages = [
     {
       title: 'Pool',
@@ -27,5 +28,20 @@ export class AppComponent {
       icon: 'checkmark'
     },
   ];
+
+  public appPagesDeslogado = [
+    {
+      title: 'Login',
+      url: '/login',
+      icon: 'person'
+    },
+    {
+      title: 'Registrar',
+      url: '/registrar',
+      icon: 'person'
+    },
+  ];
   constructor() { }
+
+  
 }
