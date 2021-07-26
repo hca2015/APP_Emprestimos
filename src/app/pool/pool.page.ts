@@ -26,7 +26,6 @@ export class PoolPage {
   ionViewDidEnter() {
     this.service.buscarPool().subscribe(
       success => {
-        console.log(success);
         this.pedidos = success;
       },
       error => {

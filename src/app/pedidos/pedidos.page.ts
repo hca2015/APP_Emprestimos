@@ -18,7 +18,6 @@ export class PedidosPage {
   cancelarPedido(pedido: Pedido) {
     this.service.cancelarPedido(pedido).subscribe(
       s => {
-        console.log(s)
         this.buscar()
       },
       err => {
@@ -38,12 +37,10 @@ export class PedidosPage {
   ionViewDidEnter() {
     this.buscar();
   }
-  
+
   private buscar() {
-    console.log('buscando pedidos')
     this.service.buscarPool().subscribe(
       success => {
-        console.log(success);
         this.pedidos = success;
       },
       error => {
