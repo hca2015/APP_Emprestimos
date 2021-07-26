@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { KDTipoTempo, Oferta, Pedido } from '../models';
 import { OfertasService } from '../ofertas/ofertas.service';
 
@@ -32,7 +33,7 @@ export class FazerofertaPage implements OnInit {
           {
             'pedidoid': new FormControl({ value: this.pedido.pedidoid, disabled: true }, [Validators.required]),
             'valor': new FormControl({ value: this.pedido.valor, disabled: true }, [Validators.required]),
-            'taxa': new FormControl('0.15', [Validators.required]),
+            'taxa': new FormControl('', [Validators.required]),
             'tempo': new FormControl('30', [Validators.required]),
             'tipotempo': new FormControl('', [Validators.required]),
           },
@@ -61,9 +62,16 @@ export class FazerofertaPage implements OnInit {
   enviarOferta() {
     if (this.ofertaForm.valid) {
       let oferta: Oferta = this.ofertaForm.value;
+      oferta.pedidoid = this.pedido.pedidoid;
       this.service.enviarOferta(oferta).subscribe(
         sucesso => {
-          console.log(sucesso);
+          Swal.fire({
+            text: 'Incluido com sucesso',
+            icon: 'success',
+            timer: 2000,
+          }).then(() => {
+            this.router.navigate(['pool'])
+          })
         },
         erro => {
           console.log(erro)

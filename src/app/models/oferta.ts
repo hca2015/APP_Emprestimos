@@ -9,4 +9,5 @@ export interface Oferta {
     tipotempo?: number;
     criado?:    Date;
     cancelado?: number;
+    pedidoid?: number;
 }
