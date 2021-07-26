@@ -22,7 +22,7 @@ export class NovopedidoPage implements OnInit {
 
     this.pedidoForm = this.formBuilder.group(
       {
-        'valor': new FormControl(1000 , Validators.compose([Validators.required, Validators.min(1000)])),
+        'valor': new FormControl(null , Validators.compose([Validators.required, Validators.min(1000)])),
       },
     )
   }
