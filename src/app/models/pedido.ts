@@ -5,6 +5,8 @@ export interface Pedido {
     usuario?:  Usuario;
     valor?:    number;
     criado?:   Date;
+    aceito?:   Date;
     ofertas?:  Oferta[];
     criadostr?: string;
+    aceitostr?: string;
 }

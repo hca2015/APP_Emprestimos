@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KDTipoTempo, Pedido } from '../models';
+import { KDTipoTempo, Oferta, Pedido } from '../models';
+import { OfertasService } from '../ofertas/ofertas.service';
 
 @Component({
   selector: 'app-fazeroferta',
@@ -20,7 +21,8 @@ export class FazerofertaPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private service: OfertasService) {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -30,7 +32,7 @@ export class FazerofertaPage implements OnInit {
           {
             'pedidoid': new FormControl({ value: this.pedido.pedidoid, disabled: true }, [Validators.required]),
             'valor': new FormControl({ value: this.pedido.valor, disabled: true }, [Validators.required]),
-            'taxa': new FormControl('', [Validators.required]),
+            'taxa': new FormControl('0.15', [Validators.required]),
             'tempo': new FormControl('30', [Validators.required]),
             'tipotempo': new FormControl('', [Validators.required]),
           },
@@ -53,6 +55,20 @@ export class FazerofertaPage implements OnInit {
       this.lucrobruto = parseFloat((this.valorfinal - valor).toFixed(2));
       this.taxasdobanco = parseFloat((this.lucrobruto * 0.15).toFixed(2));
       this.lucroliquido = parseFloat((this.lucrobruto - this.taxasdobanco).toFixed(2));
+    }
+  }
+
+  enviarOferta() {
+    if (this.ofertaForm.valid) {
+      let oferta: Oferta = this.ofertaForm.value;
+      this.service.enviarOferta(oferta).subscribe(
+        sucesso => {
+          console.log(sucesso);
+        },
+        erro => {
+          console.log(erro)
+        }
+      );
     }
   }
 

@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'fazeroferta',
         loadChildren: () => import('./fazeroferta/fazeroferta.module').then(m => m.FazerofertaPageModule)
+      },
+      {
+        path: 'novopedido',
+        loadChildren: () => import('./novopedido/novopedido.module').then( m => m.NovopedidoModule)
       }
     ]
   },
@@ -37,12 +41,13 @@ const routes: Routes = [
   {
     path: 'registrar',
     loadChildren: () => import('./registrar/registrar.module').then(m => m.RegistrarPageModule)
-  }
+  }, 
+
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, })
   ],
   exports: [RouterModule]
 })

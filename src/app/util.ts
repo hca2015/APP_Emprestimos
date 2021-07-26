@@ -1,6 +1,8 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { FormControl } from "@angular/forms";
-import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators"
 
 export function resolveError(obj: FormControl) {
   let erros = []
@@ -20,6 +22,9 @@ export function resolveError(obj: FormControl) {
           case 'email':
             erros.push(`Email inválido`)
             break;
+          case 'min':
+            erros.push(`Valor deve ser superior a ${element['min']}`)
+            break;
           default:
             erros.push(`erro desconhecido ${key}`)
             break;
@@ -33,6 +38,13 @@ export function resolveError(obj: FormControl) {
 
 export class AuthInterceptor implements HttpInterceptor {
   hasToken: boolean;
+
+  /**
+   *
+   */
+  constructor(private router: Router) {
+
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -51,6 +63,23 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      map((event: HttpEvent<any>) => {
+        return event;
+      }),
+      catchError(
+        (
+          httpErrorResponse: HttpErrorResponse,
+          _: Observable<HttpEvent<any>>
+        ) => {
+          if (httpErrorResponse.status === HttpStatusCode.Unauthorized) {
+            window.localStorage.removeItem('token');
+            this.router.navigate(['login']);
+          }
+          return throwError(httpErrorResponse);
+        }
+      )
+    );
+
   }
 }

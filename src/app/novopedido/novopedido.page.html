@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Fazer pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <form [formGroup]="pedidoForm" (ngSubmit)="fazerPedido()">
+            <ion-item>
+        <ion-label position="floating">Valor do pedido (deve ser superior a 1000)<ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input formControlName="valor" type="number"></ion-input>
+      </ion-item>
+      <div *ngFor="let item of resolveError(pedidoForm?.controls?.valor)">
+        <p style="color: red;">{{item}}</p>
+      </div>
+      
+      <ion-button style="margin-top: 16px;" block color="primary" type="submit" [disabled]="pedidoForm.invalid">
+        Fazer pedido
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
+
+<!-- public int TIPOTEMPO { get; set; } //KDTipoTempo -->

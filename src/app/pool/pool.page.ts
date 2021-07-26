@@ -8,7 +8,7 @@ import { PoolService } from './pool.service';
   templateUrl: './pool.page.html',
   styleUrls: ['./pool.page.scss'],
 })
-export class PoolPage implements OnInit {
+export class PoolPage {
 
   constructor(private service: PoolService, private router: Router) { }
 
@@ -23,7 +23,7 @@ export class PoolPage implements OnInit {
     this.router.navigate(['fazeroferta'], navigationExtras);
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.service.buscarPool().subscribe(
       success => {
         console.log(success);
