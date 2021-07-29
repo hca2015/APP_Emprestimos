@@ -38,7 +38,28 @@ export class PedidosPage {
     this.buscar();
   }
 
-  private buscar() {
+  verOfertas(pedido: Pedido){
+
+    if(pedido.ofertas.length == 0){
+      Swal.fire({
+        text: 'Pedido sem ofertas no momento',
+        timer: 2500,
+        showCancelButton: false,
+        showConfirmButton: false,
+        icon: 'warning'
+      })
+      return;
+    }
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        pedido: pedido
+      }
+    };
+    this.router.navigate(['veroferta'], navigationExtras);
+  }
+
+  buscar() {
     this.service.buscarPool().subscribe(
       success => {
         this.pedidos = success;

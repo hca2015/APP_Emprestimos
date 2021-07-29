@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ofertas do pedido {{pedido?.pedidoid}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    
+  <ng-container *ngIf="visualizacao === 0; then listaTemplate; else ofertaDetalheTemplate"></ng-container>
+  <ng-template #listaTemplate>
+    <div id="container">    
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="3">Taxa oferecida</ion-col>
+          <ion-col size="3">Valor pedido</ion-col>
+          <ion-col size="3">Valor final</ion-col>
+          <ion-col size="3">Detalhes</ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <ion-grid fixed>
+        <ion-row *ngFor="let item of pedido?.ofertas">
+          <ion-col size="3">{{item?.taxa?.toFixed(2)}}</ion-col>
+          <ion-col size="3">{{pedido?.valor?.toFixed(2)}}</ion-col>
+          <ion-col size="3">{{(item?.taxa * pedido?.valor)?.toFixed(2)}}</ion-col>
+          <ion-col size="3">          
+            <ion-button shape="round" size="small" (click)="verDetalhe(item)">
+              <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>  
+      
+      <br>
+      <ion-button (click)="voltarPedidos()">Voltar para pedidos<ion-icon slot="icon-only" name="checkmark"></ion-icon></ion-button>
+    </div>
+  </ng-template>
+  <ng-template #ofertaDetalheTemplate>
+    <div id="container">
+    
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+        <label>Valor do pedido: {{pedido?.valor}}</label>
+        <label>Taxa da oferta: {{ofertaDetalhe?.taxa}}</label>
+        <label>Tempo de pagamento: {{ofertaDetalhe?.tempo}} {{periodo}}</label>
+        <label>Valor final {{(pedido?.valor * ofertaDetalhe?.taxa).toFixed(2)}}</label>
+        <ion-button shape="round" size="small" (click)="voltar()">
+          Voltar para lista<ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+
+        <br>
+        <br>
+        <ion-button shape="round" size="small" color="danger" (click)="recusarOferta()">
+          Recusar oferta<ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+        <br>
+        <br>
+        <ion-button shape="round" size="small" color="success" (click)="aceitarOferta()">
+          Aceitar oferta<ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+
+      </div>
+       
+    </div>
+  </ng-template>
+
+</ion-content>

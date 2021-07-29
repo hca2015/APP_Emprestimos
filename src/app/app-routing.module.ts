@@ -41,7 +41,11 @@ const routes: Routes = [
   {
     path: 'registrar',
     loadChildren: () => import('./registrar/registrar.module').then(m => m.RegistrarPageModule)
-  }, 
+  },   {
+    path: 'veroferta',
+    loadChildren: () => import('./veroferta/veroferta.module').then( m => m.VerofertaPageModule)
+  },
+
 
 ];
 
